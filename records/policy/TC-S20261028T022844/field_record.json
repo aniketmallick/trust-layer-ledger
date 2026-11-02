@@ -1,0 +1,903 @@
+{
+ "built": {
+  "events_schema": "v2-ledger/event/0.2",
+  "iso": "2026-10-29T15:45:38+05:30",
+  "tool": "field_record.py",
+  "v2_commit": "700cb1c45c5b55a842e8c7830076b4e39685409f"
+ },
+ "head": {
+  "row_sha256": "31c94db9a79d80bdb348c395d1f81acfa9d6cbfc17256061b4fc73f2a251a331",
+  "seq": 28
+ },
+ "policy": {
+  "binds": {
+   "record_head": {
+    "row_sha256": "31c94db9a79d80bdb348c395d1f81acfa9d6cbfc17256061b4fc73f2a251a331",
+    "seq": 28
+   },
+   "record_schema": "v2-ledger/field-record/0.1",
+   "session": "TC-S20261028T022844",
+   "session_head": "e81d6f98eaf29e5248087514c70dc9987929c5b99aa2875be41eb484bb677ad7"
+  },
+  "dataset": {
+   "id": "anikmall/toceta_tote_tray",
+   "method": "id: train_config.json dataset.repo_id; revision: its dataset.revision (null: the hub's main branch when training ran, not recorded); sha256: tools/dataset_check.py over the local copy the dry-run clip was cut from (session_start.clip.source), the closest thing to a version the logs hold",
+   "revision": null,
+   "sha256": "e4741ccdcec2817c63728e2fb1b1f9837fde92ebece4da1eb868bb0759315e77"
+  },
+  "hand_rule": "HAND RULE BY DISTANCE: a hand within 50 mm of the arm freezes it (V1: any hand in the workspace box)",
+  "judge": "JUDGE OFF - monitors 2, 6-8 on",
+  "method": "ledger/policy_record.py 0.1: rebuilt from the session chain, its clips and motion log (ledger/stamps.py), the run config and train_config.json; ledger/verify checks it the same way",
+  "monitors": {
+   "config": "live_tote",
+   "config_sha256": "51ce1b2b27eaa2d463cce7a958eb8f6cdab7fde3218fb966180a9b4d42b7c18a",
+   "session_table": {
+    "off": [
+     1,
+     3,
+     4,
+     5
+    ],
+    "table": {
+     "1": "joint_margin",
+     "2": "joint_speed",
+     "3": "ee_workspace",
+     "4": "gripper_overload",
+     "5": "loop_dt",
+     "6": "kill_switch",
+     "7": "hand_in_workspace",
+     "8": "hand_link"
+    },
+    "vel_limit_dps": 30.0
+   },
+   "stamp": "MONITORS OFF BY CONFIG: 1 joint_margin, 3 ee_workspace, 4 gripper_overload, 5 loop_dt - read every step, never fire",
+   "text": "monitors:\n  # For the trial only the human-facing checks stay on: 2 joint_speed, 6 kill_switch, 7 hand_in_workspace and 8 hand_link\n  # (6-8 cannot be set here). The machine checks below are off, Aniket's call (2026-10-28): read every step, never\n  # freeze; every row says MONITORS OFF BY CONFIG (runner/monitor_switch.py says why). Every goal still passes the\n  # runner's joint limits, speed, fingertip box and squeeze.\n  joint_margin: false                         # froze both runs of 2026-10-28: the gripper folded shut at 1.27, margin 1.31\n  ee_workspace: false                         # the runner's goal_box_mm already keeps every goal inside the box\n  gripper_overload: false                     # froze 4 of 4 grasps on 2026-10-27, before the squeeze cap\n  loop_dt: false                              # never fired: p95 66.7 ms, max 68.3 ms against 89.9",
+   "text_from": "git 6870f62bb900:config/live_tote.yaml",
+   "why_no_text": null
+  },
+  "numbers": {
+   "frame_to_goals_frozen_ms_lower_bound": {
+    "max": 60.23,
+    "n": 1,
+    "p50": {
+     "ci95": [
+      60.23,
+      60.23
+     ],
+     "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+     "n": 1,
+     "p": 50,
+     "value": 60.23
+    },
+    "p95": {
+     "ci95": [
+      60.23,
+      60.23
+     ],
+     "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+     "n": 1,
+     "p": 95,
+     "value": 60.23
+    }
+   },
+   "frame_to_hold_ms_lower_bound": {
+    "max": 37.94,
+    "n": 1,
+    "p50": {
+     "ci95": [
+      37.94,
+      37.94
+     ],
+     "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+     "n": 1,
+     "p": 50,
+     "value": 37.94
+    },
+    "p95": {
+     "ci95": [
+      37.94,
+      37.94
+     ],
+     "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+     "n": 1,
+     "p": 95,
+     "value": 37.94
+    }
+   },
+   "holds": 1,
+   "iso13855": {
+    "T_from": "p95 over the holds of the stop chain's lower bound (stamps.stop_chain_ms: t_goal_frozen - t_capture, or - t_frame_pump without the camera recorder)",
+    "normal": {
+     "C_mm": 208.0,
+     "H_mm": null,
+     "K_mm_s": 2000.0,
+     "S_mm": 328.5,
+     "T_s": 0.06023,
+     "approach": "normal approach: the hand crosses the detection field at right angles, as through a light curtain across the approach",
+     "assumed": [
+      "d = 40 mm assumed, not measured"
+     ],
+     "d_mm": 40.0,
+     "geometry": "normal",
+     "method": "ISO 13855 normal approach: S = K * T + C with K = 2000 mm/s; when that S exceeds 500 mm, S = 1600 mm/s * T + C, at least 500 mm. C = 8 * (d - 14) mm for a detection capability d <= 40 mm",
+     "shortfall_mm": 278.5,
+     "threshold_mm": 50.0
+    },
+    "parallel": {
+     "C_mm": 850.0,
+     "H_mm": null,
+     "K_mm_s": 1600.0,
+     "S_mm": 946.4,
+     "T_s": 0.06023,
+     "approach": "parallel approach: the hand moves along the detection plane, as over the table plane an overhead camera watches",
+     "assumed": [
+      "d = 40 mm assumed, not measured",
+      "H not measured: C taken at its 850 mm floor, the least C for any H up to 1000 mm, so S is the least for any H"
+     ],
+     "d_mm": 40.0,
+     "geometry": "parallel",
+     "method": "ISO 13855 parallel approach: S = 1600 mm/s * T + C with C = 1200 mm - 0.4 * H, at least 850 mm; H is the detection plane's height above the floor, at most 1000 mm and at least 15 * (d - 50) mm",
+     "shortfall_mm": 896.4,
+     "threshold_mm": 50.0
+    },
+    "reads_as": "Each S says how far a demonstration threshold falls short under that geometry; neither is a safety claim, and d (and H unless set) is assumed, not measured."
+   },
+   "stamp_deltas_ms": {
+    "frame_to_hold_ms_lower_bound": {
+     "max": 37.94,
+     "n": 1,
+     "p50": {
+      "ci95": [
+       37.94,
+       37.94
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 50,
+      "value": 37.94
+     },
+     "p95": {
+      "ci95": [
+       37.94,
+       37.94
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 95,
+      "value": 37.94
+     }
+    },
+    "stop_chain_ms_lower_bound": {
+     "max": 60.23,
+     "n": 1,
+     "p50": {
+      "ci95": [
+       60.23,
+       60.23
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 50,
+      "value": 60.23
+     },
+     "p95": {
+      "ci95": [
+       60.23,
+       60.23
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 95,
+      "value": 60.23
+     }
+    },
+    "t_detect-t_capture": {
+     "max": null,
+     "n": 0,
+     "p50": {
+      "ci95": null,
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 0,
+      "p": 50,
+      "value": null
+     },
+     "p95": {
+      "ci95": null,
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 0,
+      "p": 95,
+      "value": null
+     }
+    },
+    "t_detect-t_frame_pump": {
+     "max": 37.94,
+     "n": 1,
+     "p50": {
+      "ci95": [
+       37.94,
+       37.94
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 50,
+      "value": 37.94
+     },
+     "p95": {
+      "ci95": [
+       37.94,
+       37.94
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 95,
+      "value": 37.94
+     }
+    },
+    "t_goal_frozen-t_frame_pump": {
+     "max": 60.23,
+     "n": 1,
+     "p50": {
+      "ci95": [
+       60.23,
+       60.23
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 50,
+      "value": 60.23
+     },
+     "p95": {
+      "ci95": [
+       60.23,
+       60.23
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 95,
+      "value": 60.23
+     }
+    },
+    "t_goal_frozen-t_hold_packet": {
+     "max": 22.28,
+     "n": 1,
+     "p50": {
+      "ci95": [
+       22.28,
+       22.28
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 50,
+      "value": 22.28
+     },
+     "p95": {
+      "ci95": [
+       22.28,
+       22.28
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 95,
+      "value": 22.28
+     }
+    },
+    "t_hold_packet-t_detect": {
+     "max": 0.0,
+     "n": 1,
+     "p50": {
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 50,
+      "value": 0.0
+     },
+     "p95": {
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 1,
+      "p": 95,
+      "value": 0.0
+     }
+    },
+    "t_velocity_zero-t_goal_frozen": {
+     "max": null,
+     "n": 0,
+     "p50": {
+      "ci95": null,
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 0,
+      "p": 50,
+      "value": null
+     },
+     "p95": {
+      "ci95": null,
+      "method": "nearest-rank percentile (V2 field_record.nearest_rank); its 95 % interval: the sorted values at ranks floor(n L) and ceil(n U), clamped to 1..n, where (L, U) is the Wilson interval for p at n (distribution-free, approximate; with n below about 10 it spans most of the data)",
+      "n": 0,
+      "p": 95,
+      "value": null
+     }
+    }
+   },
+   "stop_within_mm": 50.0
+  },
+  "policy": {
+   "chunk_size": 100,
+   "device": "mps",
+   "name": "anikmall/act_toceta_tote_tray@7422a89b7764",
+   "prefetch_steps": 10,
+   "replan_steps": 50,
+   "repo_id": "anikmall/act_toceta_tote_tray",
+   "revision": "7422a89b7764b65a9f3d57b35d99b715e37bdcd5",
+   "sha256": "8f9fd7808702b7573809c7849834ecb8bb209cc032bc3dd9d2f2b8fbddc6ac34",
+   "sha256_method": "sha256 over (relative path, file sha256) of the files LeRobot loads to run the policy (config.json, model.safetensors, policy_preprocessor*, policy_postprocessor*), sorted by path",
+   "task": "Pick the item from the tote and place it on the tray.",
+   "type": "act"
+  },
+  "runner_hash": "6a9b90c2e72065c253afb845f12825a0bb44a1e8c244827fa818793af3af16e7",
+  "schema": "toceta-policy-section/0.1",
+  "sentences": [
+   "Hand monitor distance threshold 50 mm; measured frame-to-hold p50 37.9 / p95 37.9 ms (n = 1, Wilson 95 % 37.9–37.9 / 37.9–37.9); under ISO 13855 at 2000 mm/s the protective separation for this loop is at least 328.5 mm for a normal approach (the hand crossing a detection field, as through a light curtain; C = 208 mm), and at 1600 mm/s at least 946.4 mm for a parallel approach (the hand moving along the table plane the overhead camera watches; C = 850 mm, H not measured, so C at its 850 mm floor); d = 40 mm assumed, not measured; 50 mm is a demonstration setting, not a protective separation distance.",
+   "Frame-to-hold here is t_hold_packet - t_frame_pump, a lower bound of the public t_hold_packet - t_capture: no camera recorder ran, so no component logged the capture time.",
+   "V1's hand monitor reads its frames from the runner's frame pump, so today the watchdog's pixels are supplied by the policy host; the hand detector runs separately, but the hold decision, the chain and the policy run in one process, the runner; Part 3 moves the camera, the decision and the record to the watchdog's own computer.",
+   "Each S says how far a demonstration threshold falls short under that geometry; neither is a safety claim, and d (and H unless set) is assumed, not measured.",
+   "The record locates; it does not diagnose. A worn gripper and a bad policy look the same in a window."
+  ],
+  "sha256": "2acc9b36cea4871c2a6573e5421d21e3ae5a10ca7061877e5719978dbd7b4d19",
+  "training": {
+   "batch_size": 64,
+   "job_name": "act_tote_tray",
+   "method": "read from the model's own train_config.json at the policy's revision in the local Hugging Face cache (LeRobot writes it beside the weights it pushes); not part of the policy hash",
+   "seed": 1000,
+   "steps": 30000,
+   "train_config_sha256": "f11a197544425826838fe1ef15dfad031f1357b0767fae91b330782a7df2bde7",
+   "wandb_run": "k8t74zvm"
+  }
+ },
+ "rows": [
+  {
+   "events_schema": "v2-ledger/event/0.2",
+   "kind": "header",
+   "prev_sha256": null,
+   "robot": "SO-101 (five arm joints and a gripper); one overhead camera, 640 x 480",
+   "row_sha256": "945dd46ec930d63916a977c33a09d43cb046f456069b108a6e4f7127a9d4e7d6",
+   "scope": "session",
+   "seq": 1,
+   "sessions": [
+    "TC-S20261028T022844"
+   ],
+   "statement": "Evidence, not certification. Read from V1's own hash-chained session logs; no claim of compliance or of safety is made.",
+   "system": "V1 trust layer on a scripted screwdriver handover (trust-layer-demo): hand monitor (monitor 7), monitor link (8), envelope monitors 1-6, a vision-model judge at checkpoints, a planner, freeze-and-ask",
+   "window": null
+  },
+  {
+   "armed_s": 73.397,
+   "chain": "TC-S20261028T022844/session.jsonl",
+   "chain_head_seq": 924,
+   "chain_head_sha256": "e81d6f98eaf29e5248087514c70dc9987929c5b99aa2875be41eb484bb677ad7",
+   "clips": {
+    "attached": 2,
+    "problem": null,
+    "verified": 2
+   },
+   "dry_run": false,
+   "ended_iso": "2026-10-28T02:30:07+05:30",
+   "g3": {
+    "sha256": "a88dc18850a6a028f250d1de2f1f020718d35e069a974f7c487d7ebc8d956cb7",
+    "version": "0.1.6"
+   },
+   "hand_feed": "V1 monitor/hand_monitor.py",
+   "judge_model": null,
+   "kind": "source",
+   "layer_off": false,
+   "mode": null,
+   "operator_override": false,
+   "prev_sha256": "945dd46ec930d63916a977c33a09d43cb046f456069b108a6e4f7127a9d4e7d6",
+   "registration_sha256": "33c5d9e63598837ca32e1ef1fbb6dd969ce50fc81b66ac61ebd971ea1f446351",
+   "root": "toceta_live_tote",
+   "row_sha256": "ada5c9cd530a8b9a323f921ca758b034c0b3922131dcf3677857b678fd60aca0",
+   "rows": 924,
+   "rubric_sha256": [],
+   "runner_code_sha256": null,
+   "runner_files": 0,
+   "seq": 2,
+   "session_id": "TC-S20261028T022844",
+   "started_iso": "2026-10-28T02:28:47+05:30"
+  },
+  {
+   "chain": "labels/labels.jsonl",
+   "head_seq": 0,
+   "head_sha256": null,
+   "kind": "labels",
+   "method": "the newest label row per event among rows 1..0 of labels/labels.jsonl, bound to the event's V1 row (event_row_sha256); human = one_by_one / labelable, any = labelled / labelable",
+   "prev_sha256": "ada5c9cd530a8b9a323f921ca758b034c0b3922131dcf3677857b678fd60aca0",
+   "row_sha256": "4a4953d1413f0977131207d2253efdf9f23113c95f4c1f368c0762d777f5accc",
+   "seq": 3
+  },
+  {
+   "clip": {
+    "mjpeg": "v2_clips/000839_freeze.mjpeg",
+    "mjpeg_sha256": "fc1ab6e558bbef419f809e741d0a216c94f49e2697e278d923ca66ccc52feda5",
+    "verified": true
+   },
+   "event_id": "TC-S20261028T022844#839",
+   "frame_to_hold_ms": 59.7,
+   "kind": "event",
+   "label": null,
+   "label_row_seq": null,
+   "label_row_sha256": null,
+   "photo": "photos/freeze01_f000825.jpg",
+   "prev_sha256": "4a4953d1413f0977131207d2253efdf9f23113c95f4c1f368c0762d777f5accc",
+   "rel_s": 54.941,
+   "review": null,
+   "row_sha256": "fb0278394289640924025d9ecd81fc1bef8c4178ee6ffa44c184eae510d36582",
+   "seq": 4,
+   "session_id": "TC-S20261028T022844",
+   "source_row_seq": 839,
+   "source_row_sha256": "e111278bbf8487920d2e5beac898c69c3471e282de35c021e8f81b9a735e392a",
+   "step_t_s": 62.4748,
+   "subtype": "m7_hand_in_workspace",
+   "type": "freeze",
+   "wall_iso": "2026-10-28T02:29:49+05:30"
+  },
+  {
+   "clip": {
+    "mjpeg": "v2_clips/000841_operator_hold.mjpeg",
+    "mjpeg_sha256": "380adcf4854eddb87ffd355d7efd8737dd1f311e7be25f8375866429de479153",
+    "verified": true
+   },
+   "event_id": "TC-S20261028T022844#841",
+   "frame_to_hold_ms": null,
+   "kind": "event",
+   "label": null,
+   "label_row_seq": null,
+   "label_row_sha256": null,
+   "photo": null,
+   "prev_sha256": "fb0278394289640924025d9ecd81fc1bef8c4178ee6ffa44c184eae510d36582",
+   "rel_s": 54.949,
+   "review": null,
+   "row_sha256": "d2292a2644ee03ec7b9621b3539f7f3a90cf6036b0be3c3256dbac9148d14682",
+   "seq": 5,
+   "session_id": "TC-S20261028T022844",
+   "source_row_seq": 841,
+   "source_row_sha256": "b3b428c7c17b0b59286d77d4bbe615f9717140111ef63a39b37d725793e7e4d1",
+   "step_t_s": 62.4828,
+   "subtype": "wait",
+   "type": "operator_hold",
+   "wall_iso": "2026-10-28T02:29:59+05:30"
+  },
+  {
+   "count": 1,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "per session, the control loop's span: t_s of the last step row minus the first (torque on, the arm holding or moving), summed over the sessions",
+   "name": "armed_hours",
+   "prev_sha256": "d2292a2644ee03ec7b9621b3539f7f3a90cf6036b0be3c3256dbac9148d14682",
+   "row_sha256": "de6db06bedd6d5e09cae931c61b786d92592bd0929b2387c3843f4758ca993a0",
+   "seq": 6,
+   "unit": "h",
+   "value": 0.020388,
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 1,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "events.py (schema v2-ledger/event/0.2) from the verified V1 chains: one event per source row; nothing is labelled to be counted",
+   "name": "events_by_type/freeze",
+   "prev_sha256": "de6db06bedd6d5e09cae931c61b786d92592bd0929b2387c3843f4758ca993a0",
+   "row_sha256": "ce851621def25060242babca74779fac291399703f364b65dc296f88a77675fd",
+   "seq": 7,
+   "unit": "events",
+   "value": 1,
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 1,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "events.py (schema v2-ledger/event/0.2) from the verified V1 chains: one event per source row; nothing is labelled to be counted",
+   "name": "events_by_type/operator_hold",
+   "prev_sha256": "ce851621def25060242babca74779fac291399703f364b65dc296f88a77675fd",
+   "row_sha256": "9d138456a903bf0924d72547597bdaa365d5d908790ca3a7be924c87f0e5e1f3",
+   "seq": 8,
+   "unit": "events",
+   "value": 1,
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 2,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "events.py (schema v2-ledger/event/0.2) from the verified V1 chains: one event per source row; nothing is labelled to be counted; the source is the monitor, the judge, the planner or the operator that stopped or held the arm",
+   "name": "stops_by_source",
+   "prev_sha256": "9d138456a903bf0924d72547597bdaa365d5d908790ca3a7be924c87f0e5e1f3",
+   "row_sha256": "26a63dc95207685b85988ac4c3a55ae01aea355d40d2d521a9d7d64fcf38e8e2",
+   "seq": 9,
+   "unit": "events",
+   "value": {
+    "code (0)": 0,
+    "judge": 0,
+    "monitor 7 (hand)": 1,
+    "monitor 8 (link)": 0,
+    "monitors 1-6 (envelope)": 0,
+    "operator": 1,
+    "planner": 0
+   },
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": null,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "as stops_by_source, by the ISO week of the session's start",
+   "name": "stops_by_source_per_week",
+   "prev_sha256": "26a63dc95207685b85988ac4c3a55ae01aea355d40d2d521a9d7d64fcf38e8e2",
+   "row_sha256": "066de354075fb2a6aaaab47bdc91df9a91b4072a05725eb95683e2a15e26880c",
+   "seq": 10,
+   "unit": "events",
+   "value": {
+    "2026-W44": {
+     "code (0)": 0,
+     "judge": 0,
+     "monitor 7 (hand)": 1,
+     "monitor 8 (link)": 0,
+     "monitors 1-6 (envelope)": 0,
+     "operator": 1,
+     "planner": 0
+    }
+   },
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 1,
+   "coverage": {
+    "any": 0.0,
+    "human": 0.0
+   },
+   "denominator": {
+    "value": 1,
+    "what": "freeze events"
+   },
+   "kind": "metric",
+   "method": "the newest label row per event among rows 1..0 of labels/labels.jsonl, bound to the event's V1 row (event_row_sha256); human = one_by_one / labelable, any = labelled / labelable",
+   "name": "labels/freeze",
+   "prev_sha256": "066de354075fb2a6aaaab47bdc91df9a91b4072a05725eb95683e2a15e26880c",
+   "row_sha256": "a0d69878ef5be7a70d5b77ed396261307ca3769c41311cf59562315380d27fbf",
+   "seq": 11,
+   "unit": "events",
+   "value": {
+    "bulk": 0,
+    "by_label": {},
+    "labelable": 1,
+    "model_panel": 0,
+    "one_by_one": 0,
+    "unreviewed": 1
+   },
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "kind": "not_shown",
+   "name": "false_alarms_per_100h/freeze",
+   "prev_sha256": "a0d69878ef5be7a70d5b77ed396261307ca3769c41311cf59562315380d27fbf",
+   "row_sha256": "365235cbb315b16d50e2b2557df97afef28be2d7e44a4a9c2419bddd99e8a378",
+   "seq": 12,
+   "why": "the operator's own labels cover 0 % of the 1 freeze events (< 50 %): no number printed; the bulk and model-panel labels are counted in labels/freeze"
+  },
+  {
+   "kind": "not_shown",
+   "name": "true_positives/freeze",
+   "prev_sha256": "365235cbb315b16d50e2b2557df97afef28be2d7e44a4a9c2419bddd99e8a378",
+   "row_sha256": "a9871f5313736e1f967f08098349d3fad051d6f20515cb9256cc5b57344b1699",
+   "seq": 13,
+   "why": "the operator's own labels cover 0 % of the 1 freeze events (< 50 %): no number printed; the bulk and model-panel labels are counted in labels/freeze"
+  },
+  {
+   "count": 1,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "the newest label row per event among rows 1..0 of labels/labels.jsonl, bound to the event's V1 row (event_row_sha256); human = one_by_one / labelable, any = labelled / labelable",
+   "name": "unreviewed_events",
+   "prev_sha256": "a9871f5313736e1f967f08098349d3fad051d6f20515cb9256cc5b57344b1699",
+   "row_sha256": "28e5af279d15472c7faaa3fbcc58ba8e60924f41c7d93a0d2ab76dd48eaca2ef",
+   "seq": 14,
+   "unit": "events",
+   "value": {
+    "freeze": 1
+   },
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "kind": "not_shown",
+   "name": "misses_found_in_review",
+   "prev_sha256": "28e5af279d15472c7faaa3fbcc58ba8e60924f41c7d93a0d2ab76dd48eaca2ef",
+   "row_sha256": "4e57ce108125baa7d9eac70204a47b45033d64dc92a35f069541650a1e90d53b",
+   "seq": 15,
+   "why": "no M2 window was sampled in this scope"
+  },
+  {
+   "count": 1,
+   "coverage": null,
+   "denominator": {
+    "value": 1,
+    "what": "monitor-7 freezes with frame_to_hold_ms"
+   },
+   "kind": "metric",
+   "method": "t_hold - frame_t in ms, as V1 logs it (t_hold_minus_frame_t_ms). frame_t: time.time() in the runner's frame pump after the cv2 read and the JPEG encode of the frame the triggering hand message was computed on (frame_pump.py:96). t_hold: time.time() right after goals := present returned, retried up to 3 times 50 ms apart (motion.py:166). Includes the hand-off through /tmp/khv, the hand monitor's inference and UDP send, up to one control period (66.7 ms), the monitor evaluation and the hold write. Excludes camera exposure, readout and driver buffering, the JPEG encode, and the servos coming to rest. Defined only for monitor-7 freezes; both times are the same host's wall clock. Percentiles by nearest rank over the monitor-7 freezes of the window that carry the value.",
+   "name": "frame_to_hold_ms",
+   "prev_sha256": "4e57ce108125baa7d9eac70204a47b45033d64dc92a35f069541650a1e90d53b",
+   "row_sha256": "6afb054def774a41c80cfeeccf268384aa5e90e89acfec34c1900cfa282d3250",
+   "seq": 16,
+   "unit": "ms",
+   "value": {
+    "max": 59.7,
+    "n": 1,
+    "p50": 59.7,
+    "p95": 59.7
+   },
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 1,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "t_hold - frame_t in ms, as V1 logs it (t_hold_minus_frame_t_ms). frame_t: time.time() in the runner's frame pump after the cv2 read and the JPEG encode of the frame the triggering hand message was computed on (frame_pump.py:96). t_hold: time.time() right after goals := present returned, retried up to 3 times 50 ms apart (motion.py:166). Includes the hand-off through /tmp/khv, the hand monitor's inference and UDP send, up to one control period (66.7 ms), the monitor evaluation and the hold write. Excludes camera exposure, readout and driver buffering, the JPEG encode, and the servos coming to rest. Defined only for monitor-7 freezes; both times are the same host's wall clock. Percentiles by nearest rank over the monitor-7 freezes of the window that carry the value. Each: session, seconds into its control loop, ms.",
+   "name": "frame_to_hold_ms_series",
+   "prev_sha256": "6afb054def774a41c80cfeeccf268384aa5e90e89acfec34c1900cfa282d3250",
+   "row_sha256": "4d2b6d259a0e9a44fec4583cd95cc05734eb90f568dce225167c4b4b5c4ea1fe",
+   "seq": 17,
+   "unit": "ms",
+   "value": [
+    [
+     "TC-S20261028T022844",
+     54.941,
+     59.7
+    ]
+   ],
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 2,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "accepted key rows at the freeze and release menus (states ASK, ASK_RELEASE), by key, from the V1 chains",
+   "name": "operator_keys",
+   "prev_sha256": "4d2b6d259a0e9a44fec4583cd95cc05734eb90f568dce225167c4b4b5c4ea1fe",
+   "row_sha256": "51285675f75781253fe2c245a30ce940602fd08a53f94216abdcd8b590c4114a",
+   "seq": 18,
+   "unit": "keys",
+   "value": {
+    "c": 1,
+    "w": 1
+   },
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 0,
+   "coverage": null,
+   "denominator": null,
+   "kind": "metric",
+   "method": "V1 kill rows (torque off), by cause, from the chains",
+   "name": "kills",
+   "prev_sha256": "51285675f75781253fe2c245a30ce940602fd08a53f94216abdcd8b590c4114a",
+   "row_sha256": "fe87013600808b003c78b345e2ce63e9d68d54e701d5d7e07ae38382004e5044",
+   "seq": 19,
+   "unit": "kills",
+   "value": {},
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 1,
+   "coverage": null,
+   "denominator": {
+    "value": 1,
+    "what": "sessions"
+   },
+   "kind": "metric",
+   "method": "sessions whose chain carries V1's operator-override stamp",
+   "name": "override_sessions",
+   "prev_sha256": "fe87013600808b003c78b345e2ce63e9d68d54e701d5d7e07ae38382004e5044",
+   "row_sha256": "f4301ce03dc5b3590fda368ad945ac52dac29c3e6aa88538c231ba8e3f8948e9",
+   "seq": 20,
+   "unit": "sessions",
+   "value": 0,
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "count": 1,
+   "coverage": null,
+   "denominator": {
+    "value": 1,
+    "what": "sessions"
+   },
+   "kind": "metric",
+   "method": "sessions run with --layer-off (monitor 7, monitor 8, the judge and the planner off)",
+   "name": "layer_off_sessions",
+   "prev_sha256": "f4301ce03dc5b3590fda368ad945ac52dac29c3e6aa88538c231ba8e3f8948e9",
+   "row_sha256": "48f08e5583cc75e3316fc6c9b20d2ea69a6ba9e261c92b5c904edc53ba6a25c9",
+   "seq": 21,
+   "unit": "sessions",
+   "value": 0,
+   "window": "session TC-S20261028T022844"
+  },
+  {
+   "items": [
+    "servo stop time and stopping distance: the hold is timed to the write of the hold goal, not to the joints at rest",
+    "camera exposure, readout and driver buffering before the frame is encoded (frame_t is after the JPEG encode)",
+    "anything outside the camera's view, and hands the arm hides from it",
+    "misses: the miss review samples windows; a sample labelled only by a model panel shows no operator-reviewed miss",
+    "frames between events in sessions recorded before M3: only the freeze photos and judge frames were stored",
+    "the judge model's reasoning beyond its stated verdict and reason",
+    "deployment: these are development sessions, most under the operator override; no field use is in them",
+    "armed time is the control loop's logged span; time with the loop not logging is not in it"
+   ],
+   "kind": "not_covered",
+   "prev_sha256": "48f08e5583cc75e3316fc6c9b20d2ea69a6ba9e261c92b5c904edc53ba6a25c9",
+   "row_sha256": "676a3bdad5686c7324fc9e23765c5c539b4224704a3e2df55136a3159c920c71",
+   "seq": 22
+  },
+  {
+   "kind": "requirement",
+   "not_shown": "retention for a year (storage is outside this record); the judge model's internal process; continuous recording between events before M3",
+   "prev_sha256": "676a3bdad5686c7324fc9e23765c5c539b4224704a3e2df55136a3159c920c71",
+   "ref": "EU Machinery Regulation 2023/1230, Annex III 1.2.1",
+   "row_sha256": "2c525cc79670b0669e7407ff28a22eed6565cd37fee62cbab045fbeb9f9b702c",
+   "seq": 23,
+   "shown": "every stop, veto, refusal, hold and release with its inputs, time and the hash of the V1 row it came from; the label and who made it; each source chain's head",
+   "title": "recording of data on the safety-related decision-making process (kept one year)"
+  },
+  {
+   "kind": "requirement",
+   "not_shown": "retention for five years; versions between sessions; who changed the code and why (no change log in this record)",
+   "prev_sha256": "2c525cc79670b0669e7407ff28a22eed6565cd37fee62cbab045fbeb9f9b702c",
+   "ref": "EU Machinery Regulation 2023/1230, Annex III 1.2.1",
+   "row_sha256": "934d57f72d2c2f1bef2ae12a32c6309eef25be15075c941b591c4643222d33e7",
+   "seq": 24,
+   "shown": "operator keys at the menus, kills, override and layer-off sessions; per session the runner's per-file code hashes, the guard's version and hash, the judge model and rubric hashes, the registration hash",
+   "title": "tracing log of interventions and safety-software versions (kept five years)"
+  },
+  {
+   "kind": "requirement",
+   "not_shown": "deletion or replacement of a whole file (a chain shows edits, not a missing session); no signature or external timestamp; no access control",
+   "prev_sha256": "934d57f72d2c2f1bef2ae12a32c6309eef25be15075c941b591c4643222d33e7",
+   "ref": "EU Machinery Regulation 2023/1230, Annex III 1.1.9",
+   "row_sha256": "a4031a760da366785a2ef03bff14600fdb46e774336fa2301a442ac1c583bf33",
+   "seq": 25,
+   "shown": "hash chains: V1's session chains, the labels chain, the clip index, this record's rows; verify_record.py checks all of them end to end",
+   "title": "protection against corruption (tamper evidence)"
+  },
+  {
+   "kind": "requirement",
+   "not_shown": "indicators tied to a safety case (there is none); thresholds; field data (these are development sessions); misses reviewed by the operator",
+   "prev_sha256": "a4031a760da366785a2ef03bff14600fdb46e774336fa2301a442ac1c583bf33",
+   "ref": "UL 4600",
+   "row_sha256": "ac7e3c6da66502fd4e601071b42a6bfd6ce16e45355dd5ed0f004b9427e1c13d",
+   "seq": 26,
+   "shown": "counts and rates with their methods: stops by source, false alarms per 100 h where the operator's labels cover >= 50 %, frame-to-hold latency",
+   "title": "safety performance indicators: field data collection"
+  },
+  {
+   "kind": "requirement",
+   "not_shown": "servo stop time and distance, stop category, validation of the stop function to the standard",
+   "prev_sha256": "ac7e3c6da66502fd4e601071b42a6bfd6ce16e45355dd5ed0f004b9427e1c13d",
+   "ref": "ISO 10218-1/-2",
+   "row_sha256": "a7d60fc4cd0a7730450339ce28161f9328a4dd96a300b5ccaa03381d1478da72",
+   "seq": 27,
+   "shown": "frame-to-hold time of monitor-7 freezes: the encoded frame to the write of the hold goal",
+   "title": "protective stop"
+  },
+  {
+   "kind": "requirement",
+   "not_shown": "contact forces and pressures, separation measured to the standard, body-region limits",
+   "prev_sha256": "a7d60fc4cd0a7730450339ce28161f9328a4dd96a300b5ccaa03381d1478da72",
+   "ref": "ISO/TS 15066",
+   "row_sha256": "31c94db9a79d80bdb348c395d1f81acfa9d6cbfc17256061b4fc73f2a251a331",
+   "seq": 28,
+   "shown": "the planner's standoff refusals and the estimated palm positions (12-73 mm error, V1 STATUS)",
+   "title": "collaborative operation: speed and separation, power and force limiting"
+  }
+ ],
+ "schema": "v2-ledger/field-record/0.1",
+ "scope": {
+  "kind": "session",
+  "sessions": [
+   "TC-S20261028T022844"
+  ],
+  "window": null
+ },
+ "twin": {
+  "binds": {
+   "record_head": {
+    "row_sha256": "31c94db9a79d80bdb348c395d1f81acfa9d6cbfc17256061b4fc73f2a251a331",
+    "seq": 28
+   },
+   "session": "TC-S20261028T022844"
+  },
+  "chain": {
+   "file": "sim/runs/chain.jsonl",
+   "head": "1dc46b019ec9673eb8c6653f66cfbe66d5d6ddeeec066cd6eceb37b64ba44f22"
+  },
+  "holds": [
+   {
+    "counterfactual": {
+     "assumed": "the hand moved after the real hold as it did when the arm stopped (a person may have reacted to the stop); the hand is at its pump stamp, a floor of its capture time",
+     "band_mm": {
+      "margin": null,
+      "n": 50,
+      "p5": 1.6,
+      "p50": 1.6,
+      "p95": 1.6,
+      "width": 0.0
+     },
+     "band_t_s": {
+      "margin": null,
+      "n": 50,
+      "p5": 0.008,
+      "p50": 0.008,
+      "p95": 0.008,
+      "width": 0.0
+     },
+     "beside": {
+      "chunk_check_rms_deg": 0.0,
+      "overlay_median_px": 7.2,
+      "twin_fingertip_p95_mm": 5.9
+     },
+     "censored": null,
+     "censored_share": 0.0,
+     "evaluable": true,
+     "held_by_other_monitor": {},
+     "horizon_s": 2.4,
+     "horizon_steps": 36,
+     "method": "PR-002 §7; sim/engine.py",
+     "min_separation_mm": 1.6,
+     "n": 50,
+     "rule": "the session's monitor-7 distance (runner/hand_near.py nearest_mm) from each hand detection to the twin's arm at its pump stamp, every hand of the detection: a lower bound on the separation (one camera gives no height)",
+     "t_after_hold_s": 0.008,
+     "with_hold_mm": {
+      "min_p50": 0.2,
+      "n": 50,
+      "what": "context, not a PR-002 component: Run A's twin, held, over the same detections"
+     }
+    },
+    "counterfactual_row_sha256": "7fcbcd4d556214e00e980c8763b2b15f37e2a8a6577e978d5239ae67dc4095cd",
+    "failed": [],
+    "fidelity_row_sha256": "1dc46b019ec9673eb8c6653f66cfbe66d5d6ddeeec066cd6eceb37b64ba44f22",
+    "in_band": true,
+    "pr002_sha256": "dcf7467980ae812a735082fab9be30ee6a0b1590a17b5bac77312fbf2544917f",
+    "reproduces": "e111278bbf8487920d2e5beac898c69c3471e282de35c021e8f81b9a735e392a",
+    "set": "test",
+    "sim_hash": "e7608d07885d29bfda71e72a7aa4e1cc4074a3d86966d34ccd7b3f8cd18baaad",
+    "source": "sim",
+    "verdicts": {
+     "outcome": "reproduced",
+     "overlay": "reproduced",
+     "post_hold_delta_300ms": "not_evaluable",
+     "separation_at_hold": "reproduced",
+     "t_goal_frozen": "reproduced",
+     "t_hold_packet": "reproduced",
+     "t_velocity_zero": "reproduced"
+    }
+   }
+  ],
+  "method": "ledger/twin_record.py 0.1: rebuilt from the reproduction chain; ledger/verify checks it the same way",
+  "schema": "toceta-twin-section/0.1",
+  "sentences": [
+   "Twin (source: sim, 50 draws, PR-002 dcf7467980ae), hold e111278bbf84: in band; had the hold not fired, the arm would have come within 1.6 mm of the hand by the session's rule, at +0.008 s (band 1.6-1.6 mm; the twin's own fingertip error, 5.9 mm, is beside it, not in it), a lower bound one camera allows.",
+   "The twin rebuilds a recorded hold and estimates what would have happened without it. It is not evidence that any policy is safe (sim/FIDELITY.md)."
+  ],
+  "sha256": "94cf4679975ebd9aa1acf39823b0e91f6f081bb1746802c45d322848567a0836"
+ }
+}

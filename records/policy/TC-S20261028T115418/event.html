@@ -1,0 +1,104 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Event viewer</title><style>
+:root{--bg:#07080a;--panel:#101215;--ink:#eef0f2;--mut:#8b9096;--line:#262a30;--red:#ff4d4f;--green:#3ddc84;
+--amber:#ffb020;--violet:#b48cff;--teal:#2ec4b6;--orange:#ff8a3d;--blue:#4da3ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",
+Helvetica,Arial,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:24px;margin:6px 0 4px}h2{font-size:17px;margin:0 0 10px;color:var(--ink)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.stmt{display:inline-block;border-left:8px solid var(--amber);background:rgba(8,9,11,.8);padding:8px 14px;
+border-radius:8px;font-weight:600}
+dl.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px 18px;margin:14px 0 0}
+dl.facts div{border-top:1px solid var(--line);padding-top:6px}dt{color:var(--mut);font-size:12px}dd{margin:0}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;word-break:break-all}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tile{position:relative;background:#0c0e11;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.t-name{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.t-val{font-size:28px;font-weight:700;margin:2px 0}.t-sub{color:var(--mut);font-size:12px}
+.method{display:none;margin-top:8px;color:var(--mut);font-size:11.5px;border-top:1px dashed var(--line);padding-top:6px}
+.tile:hover .method{display:block}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:12px}
+@media (max-width:520px){.two{grid-template-columns:1fr}}
+.ns{color:var(--amber);font-size:13px;font-weight:600}
+table{border-collapse:collapse;width:100%}th,td{text-align:left;vertical-align:top;padding:7px 8px;
+border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:600;font-size:12px}
+.legend{color:var(--mut);font-size:12px;margin-top:6px}.legend span{margin-right:14px;white-space:nowrap}
+svg text{fill:var(--mut);font-size:11px}a{color:var(--blue)}
+pre{background:#0c0e11;border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font-size:12px}
+@media (max-width:640px){main{padding:14px 12px}.t-val{font-size:24px}}
+@media print{body{background:#fff;color:#000}section,.tile{background:#fff;border-color:#bbb}.method{display:block}
+svg text{fill:#333}.stmt{background:#fff}}
+
+.wrap{display:grid;grid-template-columns:260px 1fr;gap:14px}@media (max-width:820px){.wrap{grid-template-columns:1fr}}
+#list{max-height:80vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px}
+.li{display:block;padding:5px 8px;border-radius:6px;color:var(--ink);text-decoration:none;font-size:12.5px}
+.li.on,.li:hover{background:#1b1f25}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.mut{color:var(--mut)}#badge{border-left:10px solid #8b9096;background:rgba(8,9,11,.84);padding:10px 16px;
+border-radius:10px}#btitle{font-size:20px;font-weight:700}#bsub{color:var(--mut)}
+#img img{max-width:100%;border-radius:8px;display:block;margin-top:8px}
+#rows tr.at td{background:#1d2a3a}#rows tr.this td{color:var(--amber)}#rows td{font-size:12px;padding:3px 6px}
+input[type=range]{width:100%}
+</style></head><body><main><div class="stmt">Evidence, not certification. Each event as the V1 chain recorded it.</div><h1>Event viewer</h1><div class="wrap"><nav id="list"></nav><div><section id="badge"><div id="btitle"></div><div id="bsub"></div></section><section><div><input id="scrub" type="range" min="-3" max="3" step="0.0667" value="0" aria-label="time from the event, seconds"> <span id="tval" class="mut"></span></div><div id="lanes"></div></section><section><div id="mnote" class="mut"></div><div id="img"></div></section><section><dl class="facts" id="facts"></dl></section><section><h2>Rows, 3 s either side</h2><table><tr><th>Δt s</th><th>phase / row</th><th>command</th><th>fired</th><th>hands</th><th>palms mm</th></tr><tbody id="rows"></tbody></table></section></div></div></main><script type="application/json" id="events">[{"chain": {"next_sha256": "ac22ab73c2653f479afc5bd6cfba1d81723aa534eaa603f01c3653cbcf9703a6", "prev_sha256": "dd85ea791b458c1a1ac6e7b3e6dc86d7c79ca779c25aaab432544d611f60457e", "row_sha256": "e0fa017c502ce5fe2c5ac3f7f588ef2dbfd690e303a0fb6f35eb45822e4b7f17", "seq": 14}, "detail": "ConnectionError: Failed to write 'Torque_Enable' on id_=2 with '1' after 1 tries. [TxRxResult] There is no status packet!", "id": "TC-S20261028T115418#14", "judge": null, "label": null, "latency_ms": null, "media": {"frames": [], "kind": "none", "note": "Frames are not published in this repository. Where a frame was stored, its sha256 is in the logs."}, "rel_s": null, "rows": [], "session": "TC-S20261028T115418", "steps": [], "subtype": "m0_internal", "type": "freeze", "wall_iso": "2026-10-28T11:54:27+05:30"}]</script><script>const EV = JSON.parse(document.getElementById('events').textContent);
+const $ = id => document.getElementById(id);
+const COLS = {freeze:'#ff4d4f', judge_veto:'#b48cff', planner_refusal:'#4da3ff', release:'#3ddc84',
+  operator_hold:'#b48cff', override_stamp:'#2ec4b6'};
+const LCOL = {true_positive:'#3ddc84', yes:'#3ddc84', false_alarm:'#ff4d4f', no:'#ff4d4f', unclear:'#ffb020'};
+let cur = null;
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function list(){
+  $('list').innerHTML = EV.map(e => `<a class="li" href="#${encodeURIComponent(e.id)}" data-id="${esc(e.id)}">` +
+    `<span class="dot" style="background:${e.label ? (LCOL[e.label.label] || '#8b9096') : '#8b9096'}"></span>` +
+    `${esc(e.id.split('#')[1])} ${esc(e.type)} <span class="mut">${esc(e.subtype)}</span></a>`).join('');
+}
+function lanes(e){
+  const W = 640, H = 16, names = ['phase','cmd','1','2','3','4','5','6','7','8','hands'];
+  const x = dt => 70 + (W - 80) * (dt + 3) / 6;
+  let s = `<svg viewBox="0 0 ${W} ${names.length * H + 18}" width="100%">`;
+  names.forEach((n, k) => { s += `<text x="0" y="${k * H + 12}">${n === 'cmd' ? 'command' : (/\d/.test(n) ? 'monitor ' + n : n)}</text>`; });
+  e.steps.forEach((st, i) => {
+    const nx = i + 1 < e.steps.length ? e.steps[i + 1].dt : st.dt + 0.067, w = Math.max(1, x(nx) - x(st.dt));
+    s += `<rect x="${x(st.dt)}" y="1" width="${w}" height="12" fill="${st.phase && st.phase.startsWith('PLACE') ? '#2ec4b6' : '#4da3ff'}" opacity=".35"><title>${esc(st.phase)}</title></rect>`;
+    if (st.cmd) s += `<rect x="${x(st.dt)}" y="${H + 1}" width="${w}" height="12" fill="#8b9096" opacity=".5"/>`;
+    st.fired.forEach(m => { s += `<rect x="${x(st.dt)}" y="${(m + 1) * H + 1}" width="${w}" height="12" fill="#ff4d4f"/>`; });
+    if (st.n_hands) s += `<rect x="${x(st.dt)}" y="${10 * H + 1}" width="${w}" height="12" fill="#ffb020" opacity="${Math.min(1, .4 * st.n_hands)}"/>`;
+  });
+  s += `<line id="cursor" x1="${x(0)}" x2="${x(0)}" y1="0" y2="${names.length * H}" stroke="#eef0f2" stroke-width="1.5"/>`;
+  s += `<text x="${x(-3)}" y="${names.length * H + 14}">-3 s</text><text x="${x(0) - 6}" y="${names.length * H + 14}">0</text><text x="${x(3) - 24}" y="${names.length * H + 14}">+3 s</text></svg>`;
+  return s;
+}
+function show(id){
+  const e = EV.find(v => v.id === id) || EV[0]; if (!e) return; cur = e;
+  document.querySelectorAll('.li').forEach(a => a.classList.toggle('on', a.dataset.id === e.id));
+  const lc = e.label ? (LCOL[e.label.label] || '#8b9096') : '#8b9096';
+  $('badge').style.borderLeftColor = COLS[e.type] || '#8b9096';
+  $('btitle').textContent = `${e.type.replace('_', ' ').toUpperCase()} · ${e.subtype}`;
+  $('bsub').textContent = e.detail;
+  const lab = e.label ? `<b style="color:${lc}">${esc(e.label.label)}</b> · ${esc(e.label.review === 'one_by_one' ? 'the operator, one by one' : e.label.review === 'bulk' ? 'bulk: a proposal accepted without looking' : 'a model panel')}` +
+    (e.label.note ? ` · note: “${esc(e.label.note)}”` : '') + ` · label row #${e.label.seq} <span class="mono">${esc(e.label.row_sha256.slice(0, 16))}</span>` : 'unreviewed (no label)';
+  $('facts').innerHTML = `<div><dt>Session</dt><dd>${esc(e.session)} · ${esc(e.wall_iso)} · ${e.rel_s == null ? '-' : '+' + e.rel_s.toFixed(1) + ' s into the loop'}</dd></div>` +
+    `<div><dt>Label</dt><dd>${lab}</dd></div>` +
+    (e.latency_ms != null ? `<div><dt>Frame to hold</dt><dd>${e.latency_ms} ms</dd></div>` : '') +
+    (e.judge ? `<div><dt>Judge #${e.judge.seq} (${esc(e.judge.phase)})</dt><dd>${esc(e.judge.recommend)}, p_unsafe ${esc(e.judge.p_unsafe)}, ${esc(e.judge.latency_s)} s, ${e.judge.unsafe_by_code ? 'UNSAFE' : 'not UNSAFE'} by the code; its words: “${esc(e.judge.reason)}”</dd></div>` : '') +
+    `<div><dt>Chain (V1 row #${e.chain.seq})</dt><dd class="mono">before ${esc(e.chain.prev_sha256)}<br>this ${esc(e.chain.row_sha256)}<br>after ${esc(e.chain.next_sha256)}</dd></div>`;
+  $('mnote').textContent = e.media.note;
+  $('lanes').innerHTML = e.steps.length ? lanes(e) : '<p class="mut">No step rows within 3 s (the event precedes the control loop).</p>';
+  $('rows').innerHTML = e.steps.map(s => ({dt: s.dt, html: `<tr data-dt="${s.dt}"><td>${s.dt >= 0 ? '+' : ''}${s.dt.toFixed(2)}</td><td>${esc(s.phase)}</td><td>${s.cmd ? 'sent' : '-'}</td><td>${s.fired.length ? 'm' + s.fired.join(',m') : '-'}</td><td>${s.n_hands == null ? '-' : s.n_hands}</td><td class="mono">${s.palms ? esc(JSON.stringify(s.palms)) : '-'}</td></tr>`}))
+    .concat(e.rows.map(r => ({dt: r.dt, html: `<tr data-dt="${r.dt}" class="${r.this ? 'this' : 'other'}"><td>${r.dt >= 0 ? '+' : ''}${r.dt.toFixed(2)}</td><td colspan="5">${esc(r.text)}</td></tr>`})))
+    .sort((a, b) => a.dt - b.dt).map(r => r.html).join('');
+  $('scrub').value = 0; scrub(0);
+}
+function scrub(v){
+  if (!cur) return; v = Number(v); $('tval').textContent = (v >= 0 ? '+' : '') + v.toFixed(2) + ' s';
+  const c = $('cursor'); if (c) { const x = 70 + 560 * (v + 3) / 6; c.setAttribute('x1', x); c.setAttribute('x2', x); }
+  const fr = cur.media.frames; let f = fr[0];
+  if (cur.media.kind === 'clip' && fr.length) f = fr.reduce((a, b) => Math.abs(b.dt - v) < Math.abs(a.dt - v) ? b : a);
+  $('img').innerHTML = f ? `<img alt="${esc(f.caption)}" src="${f.src}"><div class="mut">${esc(f.caption)}${fr.length > 1 && cur.media.kind !== 'clip' ? ' · ' + (fr.length - 1) + ' more below' : ''}</div>` + (cur.media.kind !== 'clip' ? fr.slice(1).map(g => `<img alt="${esc(g.caption)}" src="${g.src}"><div class="mut">${esc(g.caption)}</div>`).join('') : '') : '<p class="mut">Frames are not published in this repository. Where a frame was stored, its sha256 is in the logs.</p>';
+  let best = null; document.querySelectorAll('#rows tr').forEach(tr => { tr.classList.remove('at'); if (best === null || Math.abs(tr.dataset.dt - v) < Math.abs(best.dataset.dt - v)) best = tr; });
+  if (best) best.classList.add('at');
+}
+$('scrub').addEventListener('input', ev => scrub(ev.target.value));
+document.addEventListener('keydown', ev => { if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') { const s = $('scrub'); s.value = Math.max(-3, Math.min(3, Number(s.value) + (ev.key === 'ArrowRight' ? 1 : -1) / 15)); scrub(s.value); } });
+window.addEventListener('hashchange', () => show(decodeURIComponent(location.hash.slice(1))));
+list(); show(decodeURIComponent(location.hash.slice(1)));
+</script></body></html>

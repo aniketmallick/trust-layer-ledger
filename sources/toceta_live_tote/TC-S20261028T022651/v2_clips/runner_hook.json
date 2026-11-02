@@ -1,0 +1,18 @@
+{
+ "check_us": {
+  "max": 9.875,
+  "n": 914,
+  "p50": 1.875,
+  "p95": 2.333
+ },
+ "method": "signal_ms: time.perf_counter() around trigger_of + the datagram, after the row is written, for event and session rows; check_us: the same around trigger_of for every other row",
+ "port": 47103,
+ "send_errors": 0,
+ "signal_ms": {
+  "max": 0.1815,
+  "n": 2,
+  "p50": 0.1815,
+  "p95": 0.1815
+ },
+ "signals": 2
+}

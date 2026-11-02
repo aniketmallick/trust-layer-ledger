@@ -1,0 +1,11 @@
+# nothing that can hold a frame belongs here
+*.jpg
+*.jpeg
+*.png
+*.mjpeg
+*.mp4
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
