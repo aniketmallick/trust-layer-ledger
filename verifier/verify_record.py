@@ -9,6 +9,9 @@ at the recorded head; every row rebuilt from the sources and the labels up to th
 re-bound, every number recomputed) and compared with the record; each M2 window's anchor row and label row. A source
 that is not on disk fails the check unless --structure-only (then only the record's own chain is checked).
 
+A record with a scope row is rebuilt with the manifest it names (--left-out): its totals are recomputed from that file,
+which must have the hash the row gives. The logs of the sessions left out are not read. A window record must have one.
+
 --frames-withheld is for a copy of the sessions published without its frames: everything above is still checked, and
 a clip whose .mjpeg alone is missing is counted instead of failing. The result line says how many.
 """
@@ -25,6 +28,7 @@ import field_record as fr
 import label
 
 CHAIN_FIELDS = ("seq", "prev_sha256", "row_sha256")
+HERE = Path(__file__).resolve().parent
 
 
 def body(r: dict) -> dict:
@@ -96,10 +100,30 @@ def windows_bind(win_rows: list, sessions: list, prefix: list, problems: list) -
                 problems.append(f"window {w['window_id']}: its label row does not bind")
 
 
-def rebuild(rec: dict, sessions: list, prefix: list, problems: list, say) -> None:
+def left_out_of(rec: dict, given: str | None, problems: list) -> dict | None:
+    row = next((r for r in rec["rows"] if r["kind"] == "scope"), None)
+    if row is None:
+        if rec["scope"]["kind"] == "window":
+            problems.append("a window record must say what it left out: it has no scope row")
+        return None
+    p = Path(given) if given else HERE / row["manifest"]
+    if not p.is_file():
+        problems.append(f"scope: the manifest of the left-out sessions is not there ({p})")
+        return None
+    return fr.load_left_out(p)
+
+
+def rebuild(rec: dict, sessions: list, prefix: list, problems: list, say, left: dict | None = None) -> None:
     lab = next(r for r in rec["rows"] if r["kind"] == "labels")
     scope = fr.Scope(sessions, [e for s in sessions for e in events.events_of(s)], label.latest_labels(prefix),
-                     (lab["head_seq"], lab["head_sha256"]), [], rec["scope"]["window"])
+                     (lab["head_seq"], lab["head_sha256"]), [], rec["scope"]["window"], left)
+    if left is not None:
+        out = {x["session_id"] for x in left["sessions"]}
+        for s in sessions:
+            if s.sid in out:
+                problems.append(f"scope: {s.sid} is in the record and also listed as left out")
+        say(f"scope: {len(sessions)} of the {len(sessions) + len(out)} sessions are in this record; the other {len(out)} "
+            f"are in {Path(left['file']).name}, and their logs were not read")
     srcs, ev_rows, _ = fr.parts(scope)
     win_rows = [body(r) for r in rec["rows"] if r["kind"] == "window"]
     windows_bind(win_rows, sessions, prefix, problems)
@@ -120,6 +144,7 @@ def main(argv: list | None = None, say=print) -> int:
     ap.add_argument("record")
     ap.add_argument("--root", action="append", default=None, help="name=path (default: events.py's roots)")
     ap.add_argument("--labels", default=str(Path(__file__).resolve().parent / "labels" / "labels.jsonl"))
+    ap.add_argument("--left-out", default=None, help="the manifest a scope row names (default: the path in the row)")
     ap.add_argument("--structure-only", action="store_true")
     ap.add_argument("--frames-withheld", action="store_true", help="a clip whose .mjpeg alone is missing is counted")
     a = ap.parse_args(argv)
@@ -141,9 +166,10 @@ def main(argv: list | None = None, say=print) -> int:
         roots = {k: events.resolve(v) for k, v in events.parse_roots(a.root or list(events.DEFAULT_ROOTS)).items()}
         sessions = sources(rec, roots, problems, say)
         prefix = labels_prefix(rec, Path(a.labels), problems, say)
+        left = left_out_of(rec, a.left_out, problems)
         if sessions is not None and prefix is not None and not problems:
             withheld = withhold(sessions) if a.frames_withheld else 0
-            rebuild(rec, sessions, prefix, problems, say)
+            rebuild(rec, sessions, prefix, problems, say, left)
     for p in problems:
         say(f"  {p}")
     note = (" (structure only)" if a.structure_only else

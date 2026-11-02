@@ -9,6 +9,9 @@ Each record goes through verifier/verify_record.py, which checks the record's ow
 and head, the labels chain, and then rebuilds every row from the logs and compares. The frames are not published, so
 the verifier runs with --frames-withheld: a clip whose .mjpeg alone is missing is counted, not checked.
 
+The 30-day record has a scope row saying which sessions it left out. That row is rebuilt from runs/m1_left_out.json, so
+its totals are checked against that file. The left-out sessions' own logs are not published and are not read.
+
 A policy record also carries a `policy` section and sometimes a `twin` section, kept beside its rows. Those are checked
 here for their hash and for their binding to this record. They are not rebuilt: that needs the run config, the model's
 train_config.json and the simulator's chain, which are not in this repository.
@@ -55,7 +58,8 @@ def check(path: Path, root: Path = HERE) -> tuple[bool, list, int]:
     rc = verify_record.main([str(path), "--root", f"public={knife}", "--root", f"local={knife}",
                              "--root", f"toceta_live_tote={tote}", "--labels",
                              str(root / "labels" / ("policy_labels.jsonl" if policy else "labels.jsonl")),
-                             "--frames-withheld"], say=lines.append)
+                             "--left-out", str(root / "runs" / "m1_left_out.json"), "--frames-withheld"],
+                            say=lines.append)
     if policy:
         rec = json.loads(path.read_text(encoding="utf-8"))
         extra = section_problems(rec, "policy") + section_problems(rec, "twin")
@@ -77,7 +81,7 @@ def main(argv: list | None = None, root: Path = HERE, say=print) -> int:
     if not paths:
         say("no record found")
         return 1
-    ok, withheld = 0, 0
+    ok, withheld, scope = 0, 0, []
     for p in paths:
         good, lines, n = check(p, root)
         ok += good
@@ -86,7 +90,11 @@ def main(argv: list | None = None, root: Path = HERE, say=print) -> int:
         say(f"{'VERIFIED    ' if good else 'NOT VERIFIED'}  {name}" + (f"  ({n} clip{'s' if n > 1 else ''} withheld)" if n else ""))
         if a.verbose or not good:
             say("\n".join(f"    {x}" for x in lines))
+        elif good:
+            scope.extend(x for x in lines if x.startswith("scope:"))
     say(f"{ok} of {len(paths)} records verified")
+    for x in scope:
+        say(x)
     if withheld:
         say(f"{withheld} clip files were not checked: they are not published. Their hashes are in the chains.")
     return 0 if ok == len(paths) else 1

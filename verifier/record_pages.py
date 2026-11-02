@@ -114,7 +114,8 @@ def header(rec: dict) -> str:
              ("Record chain head", f"#{rec['head']['seq']} {rec['head']['row_sha256']}")]
     dl = "".join(f'<div><dt>{esc(k)}</dt><dd class="{"mono" if k == "Record chain head" else ""}">{esc(v)}</dd></div>'
                  for k, v in facts)
-    return (f'<section data-section="Header"><div class="stmt">{esc(h["statement"])}</div>'
+    selected = "".join(f'<div class="stmt">{esc(r["statement"])}</div>' for r in rows_of(rec, "scope"))
+    return (f'<section data-section="Header"><div class="stmt">{esc(h["statement"])}</div>{selected}'
             f'<h1>Field record: SO-101 trust layer</h1><dl class="facts">{dl}</dl></section>')
 
 

@@ -1,0 +1,736 @@
+{
+ "chosen_by": "the operator, 2026-10-13: the sessions listed in runs/m1_first13.txt",
+ "method": "every KH-S session folder under the roots dated from the first to the last day of the record's sessions and not in the record. armed_s is field_record.armed_s (t_s of the last step row minus the first); freezes counts `freeze` rows; chain_ok is chain.verify_file on the session's own log.",
+ "schema": "v2-ledger/left-out/0.1",
+ "sessions": [
+  {
+   "armed_s": 116.351,
+   "chain_head_seq": 1446,
+   "chain_head_sha256": "d086c7faf37ef45dec6a4d0d8a2e0413d278749d8b48e7a94637f8bdf5d0121e",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261002T203813"
+  },
+  {
+   "armed_s": 397.685,
+   "chain_head_seq": 4544,
+   "chain_head_sha256": "94712f4014847ff3927839065530b80cdc3ee696581934d6fc78814b8c138d90",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261003T124318"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "687f08ba751caa584f8ae5b69a7c6d903f16ee185596d1771835d7804e5f80c5",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261003T130550"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "e4f4b689cb151907dbf9f91e3b411b4cbdcfbf61e8d2ccd65444850ddc45b7d9",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261003T130559"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "f7fb54e1e9d4a81387e2b978dd9ba9f65baddff2932772fca9fa9a8b8e3b4af8",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261003T130613"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 19,
+   "chain_head_sha256": "6c7af133796010df1bcc97e4eaf9808e5b5405c8abf1987437bd677a9a007edb",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261003T130844"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 17,
+   "chain_head_sha256": "3db6825b7c47b52111333f0b6139fd7e2f229a30afad8e001bdef51dcceb1395",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261003T160920"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 17,
+   "chain_head_sha256": "d727ad2040f8eab2a64b9fbb281e02917b7f09c00ff0981615bb9015fa54783b",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261003T160955"
+  },
+  {
+   "armed_s": 290.353,
+   "chain_head_seq": 743,
+   "chain_head_sha256": "0bfb150d58bcc286aa010a4e537df34c1e2b838304a762631cebf76a1030eda7",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261003T161030"
+  },
+  {
+   "armed_s": 113.764,
+   "chain_head_seq": 1601,
+   "chain_head_sha256": "a521dd920eee89efe2da489f8c4f221a48c92533cef10b248906f024677c07cf",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261003T161811"
+  },
+  {
+   "armed_s": 51.067,
+   "chain_head_seq": 74,
+   "chain_head_sha256": "00362015a290a1c7b7dd362aaf6fe6bc33c5ab3015820d7740bbb432aa94ef92",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261003T162339"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 17,
+   "chain_head_sha256": "92d8280ed17e106e2702ce851ef8d6d8c7eda346064da98034674f797ac01a0f",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261003T202010"
+  },
+  {
+   "armed_s": 123.442,
+   "chain_head_seq": 988,
+   "chain_head_sha256": "57f17aee2783c87c9da8e591a74f3c7859aa4431d986ded859893934563ae53d",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261003T202037"
+  },
+  {
+   "armed_s": 140.307,
+   "chain_head_seq": 1104,
+   "chain_head_sha256": "8904299fab28ad9456e583c3ef7d28fba3d85fdf4fe8464dc49a18b66faedc86",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 2,
+   "session_id": "KH-S20261003T202508"
+  },
+  {
+   "armed_s": 179.526,
+   "chain_head_seq": 1036,
+   "chain_head_sha256": "80050c86bdd6e77248d35b37b2d2127221d5e406c635e02246841c709bda0878",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 3,
+   "session_id": "KH-S20261003T224913"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 18,
+   "chain_head_sha256": "11dd0a2919942b73c21c835f246c3081b7295047ff175199e0211897e4421bc2",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T000850"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "e5fbab32e1bb0e81a8bf1d7f12ab3127e96ae23d8753a98dafefdf4b1c26b1bc",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T000933"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "1ea705531dbe8769081c6d8f051aaf7082b5c3c0812f0dd7022895974f5861f4",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T001001"
+  },
+  {
+   "armed_s": 132.807,
+   "chain_head_seq": 1074,
+   "chain_head_sha256": "dd1eeb9a9f4d0d6e0a73d1ad341953c5168b9aec7cf4660810179ca0ae945086",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 3,
+   "session_id": "KH-S20261004T001129"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "3ad9bf4954752cd2ec12a902bf59226d95462011c86ffd7c8a403d24326c155b",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T003827"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 18,
+   "chain_head_sha256": "4f4ccc960e569ce73e736d0a31bf4791c7384300db99d5fe28246858f4c2386d",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T003916"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "b1eab3506ba3ffbe33d9bae46da82f0078f83dca94d1e658bd498bd47ce85a4f",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T003933"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "5e7aba5c18a2584fd00a9e6946d3a13a39bdd84b578b793501572c8e84b68cb0",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T003959"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "4c36f2f72cd14c550aece92ba566564f48d7c48325bac0c7cbd4bf692794809e",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T005345"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 18,
+   "chain_head_sha256": "6ec1a72e54d4f744e803c0113188b92833e304ab9a21786ad67e93556975f7f9",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T005642"
+  },
+  {
+   "armed_s": 140.395,
+   "chain_head_seq": 1117,
+   "chain_head_sha256": "5dd67a9814d07979faeca014e985614b163ded0f9f2d02682eda9b5d826c2bfa",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 6,
+   "session_id": "KH-S20261004T005711"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "d652f488bda8bdde552d328d6c2f87bc4cc2104ceb552d63eca387fe2b2b9ed2",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T020216"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "6a6928d4bb0ad9d6ecb443a693aa90ecfd959f9b76e55363afcc23f8f6057fd1",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T020313"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "f88c78a41b7b1a1a2e7c0e5f6bf28d1a3c8910823bfb627ff23410e2cef15ad5",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T020409"
+  },
+  {
+   "armed_s": 183.217,
+   "chain_head_seq": 968,
+   "chain_head_sha256": "1d95394d2de1e3ea34227af5fa410bb9bf07f439e7e002758000a3adf9210aed",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 2,
+   "session_id": "KH-S20261004T021811"
+  },
+  {
+   "armed_s": 133.413,
+   "chain_head_seq": 1605,
+   "chain_head_sha256": "a4c2c4455550c68a24f5e5fa16eacfc4905621af396acf4175d03046002bfac5",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T031656"
+  },
+  {
+   "armed_s": 73.784,
+   "chain_head_seq": 647,
+   "chain_head_sha256": "a5506763335dd7664fa47ad7b395c36a5802bf11de127e4999af73e099149866",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T032726"
+  },
+  {
+   "armed_s": 80.192,
+   "chain_head_seq": 624,
+   "chain_head_sha256": "8e883f3acd845b56f351b095ab4b0d6bd77ba70fdf5f0afc99b88ff6432c6099",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T040004"
+  },
+  {
+   "armed_s": 51.599,
+   "chain_head_seq": 658,
+   "chain_head_sha256": "4ca848c2419dd56f34c6e1de16367d9b28e39ba94b9b229843a482e88af9ac82",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T041926"
+  },
+  {
+   "armed_s": 59.546,
+   "chain_head_seq": 618,
+   "chain_head_sha256": "378f8b20d5f4813ad1f1f58f97a6ba7e1d87f9b75df889a8b381a6835151edb3",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T130840"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "1bc99da08bd53b27fe0a1b6cc2cf52397163663880ea4eee9822f467f4040b48",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T131318"
+  },
+  {
+   "armed_s": 241.477,
+   "chain_head_seq": 1468,
+   "chain_head_sha256": "30391f3eb3a4eecd84b9096e56200517992377cea1dd9dcb4cbb756467b384c9",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 2,
+   "session_id": "KH-S20261004T131330"
+  },
+  {
+   "armed_s": 315.409,
+   "chain_head_seq": 1621,
+   "chain_head_sha256": "7bf077825cf617758393e6091aff0307a303b2a04b5a79edd1e658899dd6bf7f",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 3,
+   "session_id": "KH-S20261004T134743"
+  },
+  {
+   "armed_s": 127.155,
+   "chain_head_seq": 810,
+   "chain_head_sha256": "38d3703629acac00981d044480bd129f9fee29b8feaeb9f0ec1bc2f64c98fc80",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T152015"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "ba426244828c88aae4ec48968da5c0ec9e5c265f859c0c196a0002e014eead5a",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T152648"
+  },
+  {
+   "armed_s": 113.483,
+   "chain_head_seq": 1452,
+   "chain_head_sha256": "e0fe8a4178b1e0f52024d6f1b39645001f73529278931642113a5e78d9278b27",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T163650"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "c70748d5891c328e1df21c89a433df0275a363e790674e34c2b59b3eb835d198",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T164345"
+  },
+  {
+   "armed_s": 195.571,
+   "chain_head_seq": 1669,
+   "chain_head_sha256": "d3d8b1239c958ff048784f926c7a1d94648a970dc2a0be2eb8ff1820532129cd",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T164518"
+  },
+  {
+   "armed_s": 115.333,
+   "chain_head_seq": 825,
+   "chain_head_sha256": "b8dc7f2df59697c3eeeb70e225efc5814564419694f5a232399cfc764f2034c2",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T165340"
+  },
+  {
+   "armed_s": 117.693,
+   "chain_head_seq": 1039,
+   "chain_head_sha256": "f4a0e5642c663eed0fa7e003f3208dc80b69ed1acea73eaa382e9c74ab32571d",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T165724"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 18,
+   "chain_head_sha256": "42fe6676c07d3a6dee6d6af28fe4a2ecf69d9be234caf3e1b94821c0a051a657",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T170026"
+  },
+  {
+   "armed_s": 198.109,
+   "chain_head_seq": 1873,
+   "chain_head_sha256": "38771ac590ea3cf90b732328e9ebcfe88c5a4f9da5b4da4ca2d9aa3b16761526",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 2,
+   "session_id": "KH-S20261004T171846"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "33fe060e5415dcc7d2be3473ce0770ea73d293496c8719856bb808f9a1fd5748",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T173337"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "baa848be9aca975f68c71b542cd560a213d97b393f8da934dc167c012ccec05e",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T174149"
+  },
+  {
+   "armed_s": 118.371,
+   "chain_head_seq": 1645,
+   "chain_head_sha256": "9dae82374b458f0d342e31f0d560621c3ec4e2137e699e481ce5ff8c25b41b3e",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T175358"
+  },
+  {
+   "armed_s": 110.724,
+   "chain_head_seq": 846,
+   "chain_head_sha256": "ba3c8dc3d0465d82f88d877da40ee0af99fb8d44b067e8f8ec09f18e3c3ab866",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T180037"
+  },
+  {
+   "armed_s": 236.999,
+   "chain_head_seq": 1905,
+   "chain_head_sha256": "2a018f988ca35dc80f3524e704da0df9fd68cb3b044b1a3d063e21fa86c7bfd8",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 2,
+   "session_id": "KH-S20261004T180456"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "471efe003467ef5e1d3378a1bf7f22db84d8b458c771f31d3ba89756f0c96cd2",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T224612"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 19,
+   "chain_head_sha256": "a60111fede48511108cf936e04b3df0fba46bc4cb6a47b7fef055ba80a53325a",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261004T224622"
+  },
+  {
+   "armed_s": 169.582,
+   "chain_head_seq": 856,
+   "chain_head_sha256": "a4e125cfb420ef598e2637ccd70754f72ca507ed0cb2a798d1052cc367caec53",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T224851"
+  },
+  {
+   "armed_s": 73.752,
+   "chain_head_seq": 849,
+   "chain_head_sha256": "9c11cb16ec5708b7ac93dd6d4b23b68485e617708a5ef22f298d50c53a6138fd",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T225243"
+  },
+  {
+   "armed_s": 225.63,
+   "chain_head_seq": 880,
+   "chain_head_sha256": "e721fef16d1bad38d880bf1609d0e762ff5b73053656f3a86eacfce559a3a09b",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261004T225922"
+  },
+  {
+   "armed_s": 125.868,
+   "chain_head_seq": 1237,
+   "chain_head_sha256": "2f2c9b68deebfc3934fdc1f74f33e2326c758bf66a7e424095957767babaa4b4",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 2,
+   "session_id": "KH-S20261004T230455"
+  },
+  {
+   "armed_s": 321.9,
+   "chain_head_seq": 3094,
+   "chain_head_sha256": "a1ebb18548d969e5dd1081cdd4e30cc789809c4cc3ef4e7810c2505565dc6c22",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 5,
+   "session_id": "KH-S20261004T230826"
+  },
+  {
+   "armed_s": 226.255,
+   "chain_head_seq": 1711,
+   "chain_head_sha256": "2dfea5de947d3c7ecaab2c3d0a1dfcd193d3861946ac97c9eff4d296a2e732dd",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 2,
+   "session_id": "KH-S20261004T232248"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 18,
+   "chain_head_sha256": "200794aca576c2e0507a57b91e84019dc3a061d9fb747ac7c3635e8191413671",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T002042"
+  },
+  {
+   "armed_s": 148.75,
+   "chain_head_seq": 1285,
+   "chain_head_sha256": "1dd5a34e9ebb1e91cc79ade0864d3f6c601b09492ecf41f30ffe54576025d2a2",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 3,
+   "session_id": "KH-S20261005T002110"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 18,
+   "chain_head_sha256": "627c04c905fcec1b672598db9ef214a1e81ed148d5d5f9f4f8ae879b8762e8e5",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T002930"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "8aea807eca64a24b9df974901194f00af43bcef1a06cd0cccabcd2d48747bb2c",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T002947"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 21,
+   "chain_head_sha256": "8db34031d1f91ac7c6876dfe9450d5a4fb4fb60061c1e49fc0b7413fa5ee2d64",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T003127"
+  },
+  {
+   "armed_s": 161.309,
+   "chain_head_seq": 1710,
+   "chain_head_sha256": "8dc99f538f29574aaf095761168facedc2c2607e6530375ddc0be4bf49796ff1",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 3,
+   "session_id": "KH-S20261005T003236"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 20,
+   "chain_head_sha256": "59e7200f8e42fee59d0d4b14bb4ef345b78be4d3cb405c83c27bbdb866e172ec",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T004755"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 21,
+   "chain_head_sha256": "af003df281bbb7079e703a853a82ed5cf83dc9a474e56632fa14ff5a15d1da37",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T004832"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 21,
+   "chain_head_sha256": "a4ec484568083243709b3c087fe766002ce6efb28aaba6158f1f95956afce582",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T005848"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "cc9b16d70018a6007666bb6ce83f01d74050a3160e8d9f532d0c59b1535959c6",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T005958"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "211ef5d20e9b03236d56ffa0978a7fbf43381f5f6468db7ef39ad7f445265fe1",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T010004"
+  },
+  {
+   "armed_s": 175.982,
+   "chain_head_seq": 849,
+   "chain_head_sha256": "ab8a5a4055a11a85cae477a5ec0fec1bdbba020607c296619ef0fd6400663a77",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T010018"
+  },
+  {
+   "armed_s": 70.08,
+   "chain_head_seq": 717,
+   "chain_head_sha256": "a4e75b115bb7665f0b348238dbd0f61f56f968125d81d13a6418c5acb5c4915d",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T010431"
+  },
+  {
+   "armed_s": 72.052,
+   "chain_head_seq": 705,
+   "chain_head_sha256": "03801ef33d091fdd63a1206840221c14a4186f737b06ea12dc0d56d9393107fd",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T010655"
+  },
+  {
+   "armed_s": 327.33,
+   "chain_head_seq": 922,
+   "chain_head_sha256": "c8538c822dbf7eb95ab120fd79aaa9da585290ed088d3e02faf990ef89e02d4e",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T010923"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 14,
+   "chain_head_sha256": "12da0a93bcb6d7a8617b87a547439933792e591f4447f8978ea787cc860de688",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T012750"
+  },
+  {
+   "armed_s": 0.0,
+   "chain_head_seq": 18,
+   "chain_head_sha256": "6efc5a2bd3dc7ce09314e7d1e4bea4c983f6ae82a3dbf8cbddb09e43cb5c9b92",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 0,
+   "session_id": "KH-S20261005T012803"
+  },
+  {
+   "armed_s": 181.748,
+   "chain_head_seq": 2026,
+   "chain_head_sha256": "f9e5434ff4c74ccb1fefbabc308d4701427d9e4f95eed6a3851d94b480aae65b",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T012834"
+  },
+  {
+   "armed_s": 116.313,
+   "chain_head_seq": 799,
+   "chain_head_sha256": "269959b1b4e19b6f813263d28e38ab5824bb70a658837744fd6d90d48e1ed585",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T013711"
+  },
+  {
+   "armed_s": 267.729,
+   "chain_head_seq": 1188,
+   "chain_head_sha256": "2bb4b1be6aabcb8549a3d2a8119e8ac6c79b78d94634bdd4d5fca5880b2c3ba5",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 4,
+   "session_id": "KH-S20261005T014052"
+  },
+  {
+   "armed_s": 148.051,
+   "chain_head_seq": 811,
+   "chain_head_sha256": "e2cd4deebc9a84d82252ef8061c1f180e318c226cfc05a3aaba96a4ae4453173",
+   "chain_ok": true,
+   "chain_problem": null,
+   "freezes": 1,
+   "session_id": "KH-S20261005T014628"
+  }
+ ]
+}

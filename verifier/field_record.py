@@ -10,8 +10,12 @@ operator's own labels are ground truth, so a rate is printed only where they cov
 a not_shown row says why.
 
     python3 field_record.py --session KH-S20261005T015041 --out records/KH-S20261005T015041
-    python3 field_record.py --sessions-file runs/m1_first13.txt --window-days 30 --out records/window_30d
+    python3 field_record.py --sessions-file runs/m1_first13.txt --window-days 30 --left-out runs/m1_left_out.json \\
+        --out records/window_30d
     python3 verify_record.py records/KH-S20261005T015041/field_record.json
+
+A window record covers the sessions chosen for it. --left-out adds its scope row, right after the header: how many
+sessions those days held, how many are in the record, and what the others hold, from left_out.py's manifest.
 """
 from __future__ import annotations
 
@@ -63,6 +67,9 @@ M_PANEL = ("the M2 sample labelled by a model panel (lenient, harsh and evidence
            "under rule 4 these are not misses or non-misses until the operator labels them")
 M_KEYS = "accepted key rows at the freeze and release menus (states ASK, ASK_RELEASE), by key, from the V1 chains"
 M_KILLS = "V1 kill rows (torque off), by cause, from the chains"
+M_SCOPE = ("in_record: this record's own source and event rows. left_out: the totals of the manifest (left_out.py), which "
+           "lists each session left out with its chain head, armed seconds and freezes, read from that session's own "
+           "log. Which sessions went into the record was a choice: see chosen_by")
 NOT_COVERED = [
     "servo stop time and stopping distance: the hold is timed to the write of the hold goal, not to the joints at rest",
     "camera exposure, readout and driver buffering before the frame is encoded (frame_t is after the JPEG encode)",
@@ -113,6 +120,7 @@ class Scope:
     labels_head: tuple
     windows: list
     window: dict | None
+    left_out: dict | None = None
 
 
 def find(roots: dict, sid: str) -> tuple:
@@ -122,8 +130,14 @@ def find(roots: dict, sid: str) -> tuple:
     raise FileNotFoundError(f"{sid}: no session folder under the roots {sorted(roots)}")
 
 
+def load_left_out(path: Path) -> dict:
+    """left_out.py's manifest, with its name and the sha256 of its bytes."""
+    data = Path(path).read_bytes()
+    return {**json.loads(data), "file": f"runs/{Path(path).name}", "sha256": hashlib.sha256(data).hexdigest()}
+
+
 def load(roots: dict, ids: list, labels_path: Path, windows_dir: Path | None = None,
-         window: dict | None = None) -> Scope:
+         window: dict | None = None, left_out: dict | None = None) -> Scope:
     sessions = [events.Session(folder, name) for name, folder in (find(roots, sid) for sid in ids)]
     evs = [e for s in sessions for e in events.events_of(s)]
     ok, why, rows = chain.verify_file(Path(labels_path))
@@ -134,7 +148,7 @@ def load(roots: dict, ids: list, labels_path: Path, windows_dir: Path | None = N
     if windows_dir is not None and Path(windows_dir).is_dir():
         wins = [w for w in label.load_events(Path(windows_dir)) if w["session"]["id"] in set(ids)]
     head = (rows[-1]["seq"], rows[-1]["row_sha256"]) if rows else (0, None)
-    return Scope(sessions, evs, latest, head, wins, window)
+    return Scope(sessions, evs, latest, head, wins, window, left_out)
 
 
 # ------------------------------------------------------------------------------------------ the pieces
@@ -223,6 +237,23 @@ def window_row(scope: Scope, w: dict, t0: float | None) -> dict:
             "review": None if lab is None else (lab.get("review") or "one_by_one"),
             "label_row_seq": None if lab is None else lab["seq"],
             "label_row_sha256": None if lab is None else lab["row_sha256"], "sampling": w.get("sampling")}
+
+
+def scope_row(scope: Scope, srcs: list, ev_rows: list) -> dict:
+    m, left = scope.left_out, scope.left_out["sessions"]
+    day = lambda sid: f"{sid[4:8]}-{sid[8:10]}-{sid[10:12]}"                          # noqa: E731
+    days = sorted({day(r["session_id"]) for r in srcs} | {day(s["session_id"]) for s in left})
+    armed, freezes = round(sum(s["armed_s"] for s in left) / 3600.0, 6), sum(s["freezes"] for s in left)
+    n = len(srcs) + len(left)
+    return {"kind": "scope", "days": days, "sessions_on_those_days": n,
+            "statement": (f"{len(srcs)} of the {n} sessions from these {len(days)} days are in this record ({days[0]} to "
+                          f"{days[-1]}). The other {len(left)} hold {armed:.2f} armed hours and {freezes} freezes; no "
+                          "number in this record counts them."),
+            "in_record": {"sessions": len(srcs), "armed_hours": round(sum(r["armed_s"] for r in srcs) / 3600.0, 6),
+                          "freezes": sum(r["type"] == "freeze" for r in ev_rows)},
+            "left_out": {"sessions": len(left), "armed_hours": armed, "freezes": freezes,
+                         "chains_verified": sum(s["chain_ok"] for s in left)},
+            "chosen_by": m["chosen_by"], "manifest": m["file"], "manifest_sha256": m["sha256"], "method": M_SCOPE}
 
 
 def metric(name: str, value, unit: str, window: str, method: str, count=None, denominator=None, coverage=None) -> dict:
@@ -331,6 +362,8 @@ def assemble(kind: str, scope: Scope, srcs: list, ev_rows: list, win_rows: list)
               else f"session {ids[0]}" if len(ids) == 1 else f"{len(ids)} sessions")
     rows = [{"kind": "header", "statement": STATEMENT, "robot": ROBOT, "system": SYSTEM, "scope": kind,
              "sessions": ids, "window": scope.window, "events_schema": events.SCHEMA}]
+    if scope.left_out is not None:
+        rows.append(scope_row(scope, srcs, ev_rows))
     rows += srcs
     rows.append({"kind": "labels", "chain": "labels/labels.jsonl", "head_seq": scope.labels_head[0],
                  "head_sha256": scope.labels_head[1], "method": M_LABELS.format(head=scope.labels_head[0])})
@@ -436,6 +469,7 @@ def main(argv: list | None = None) -> int:
     ap.add_argument("--labels", default=str(HERE / "labels" / "labels.jsonl"))
     ap.add_argument("--windows-dir", default=str(HERE / "out" / "windows"))
     ap.add_argument("--no-windows", action="store_true")
+    ap.add_argument("--left-out", default=None, help="left_out.py's manifest: adds the scope row")
     ap.add_argument("--out", required=True)
     ap.add_argument("--no-pages", action="store_true")
     a = ap.parse_args(argv)
@@ -447,7 +481,8 @@ def main(argv: list | None = None) -> int:
     if not ids or (window is None and len(ids) != 1):
         print("one --session, or sessions with --window-days")
         return 2
-    scope = load(roots, ids, Path(a.labels), None if a.no_windows else Path(a.windows_dir), window)
+    scope = load(roots, ids, Path(a.labels), None if a.no_windows else Path(a.windows_dir), window,
+                 load_left_out(Path(a.left_out)) if a.left_out else None)
     rec = record(scope, "window" if window else "session")
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)

@@ -10,6 +10,7 @@ array. The names below are the ones in the files; `verifier/` is the reference f
 | Field record | `v2-ledger/field-record/0.1` | `records/**/field_record.json` |
 | Event | `v2-ledger/event/0.2` | derived by `verifier/events.py`, projected into `event` rows |
 | Review window | `v2-ledger/window/0.1` | projected into `window` rows |
+| Left-out manifest | `v2-ledger/left-out/0.1` | `runs/m1_left_out.json` |
 | Label | `kind: label` | `labels/labels.jsonl` |
 | Session log | written by the runner | `sources/**/session.jsonl` |
 | Clip index and clip metadata | `v2-clip/0.1` | `sources/**/v2_clips/` |
@@ -52,6 +53,7 @@ Every row also has `seq`, `prev_sha256` and `row_sha256`.
 | `kind` | Count | Fields |
 |---|---|---|
 | `header` | 1 | `statement`, `robot`, `system`, `scope`, `sessions`, `window`, `events_schema` |
+| `scope` | 1 in a window record | `statement`, `days`, `sessions_on_those_days`, `in_record` (`sessions`, `armed_hours`, `freezes`), `left_out` (the same, plus `chains_verified`), `chosen_by`, `manifest`, `manifest_sha256`, `method` |
 | `source` | one per session | `session_id`, `root`, `chain`, `chain_head_seq`, `chain_head_sha256`, `rows`, `started_iso`, `ended_iso`, `mode`, `dry_run`, `operator_override`, `layer_off`, `armed_s`, `hand_feed`, `runner_code_sha256`, `runner_files`, `g3`, `judge_model`, `rubric_sha256`, `registration_sha256`, `clips` (`attached`, `verified`, `problem`) |
 | `labels` | 1 | `chain`, `head_seq`, `head_sha256`, `method` |
 | `event` | one per event | `event_id`, `type`, `subtype`, `session_id`, `source_row_seq`, `source_row_sha256`, `step_t_s`, `rel_s`, `wall_iso`, `label`, `review`, `label_row_seq`, `label_row_sha256`, `frame_to_hold_ms`, `photo`, `clip` (`mjpeg`, `mjpeg_sha256`, `verified`) |
@@ -65,6 +67,18 @@ Every row also has `seq`, `prev_sha256` and `row_sha256`.
 
 A `metric` always carries its `method` as a sentence. A rate appears only when the operator's own labels cover at least
 half of the events behind it. Otherwise there is a `not_shown` row, and the `why` gives the coverage.
+
+### What a window leaves out
+
+A window record covers the sessions chosen for it, so it has to say what else those days held. The `scope` row comes right
+after the header, and a window record without one does not verify. Session records do not have one, which is why this
+did not change the record's schema version.
+
+The left-out logs are not published, so the row cannot be rebuilt from them the way other rows are. It is rebuilt from
+`runs/m1_left_out.json` instead. That file lists each left-out session, one object each: `session_id`, `chain_ok`,
+`chain_problem`, `chain_head_seq`, `chain_head_sha256`, `armed_s`, `freezes`. `manifest_sha256` is the SHA-256 of its bytes.
+The verifier recomputes the totals and the hash from the file. It cannot check any one session's figures. The heads do
+commit to those logs: if one is ever published, its head has to match.
 
 ### Events
 

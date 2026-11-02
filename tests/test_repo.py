@@ -140,6 +140,55 @@ class Caught(Copy):
         self.assertIn("not on disk", out)
 
 
+class Scope(Copy):
+    """The 30-day record's scope row: 13 of 94 sessions, and what the other 81 hold."""
+
+    def setUp(self):
+        super().setUp()
+        self.record = self.root / "records" / "window_30d" / "field_record.json"
+        self.manifest = self.root / "runs" / "m1_left_out.json"
+
+    def redone(self, rec: dict) -> None:
+        prev = None
+        for i, r in enumerate(rec["rows"], 1):
+            r["seq"], r["prev_sha256"] = i, prev
+            r["row_sha256"] = prev = chain.row_hash(r)
+        rec["head"] = {"seq": rec["rows"][-1]["seq"], "row_sha256": prev}
+        self.save(rec)
+
+    def test_the_record_states_it(self):
+        ok, out = self.verified()
+        self.assertTrue(ok, out)
+        self.assertIn("scope: 13 of the 94 sessions are in this record", out)
+        row = self.rec()["rows"][1]
+        self.assertEqual((row["kind"], row["left_out"]["sessions"], row["left_out"]["freezes"]), ("scope", 81, 77))
+        self.assertEqual(round(row["left_out"]["armed_hours"], 2), 1.94)
+
+    def test_a_forged_left_out_number_with_the_whole_chain_redone(self):
+        rec = self.rec()
+        rec["rows"][1]["left_out"]["freezes"] = 0
+        self.redone(rec)
+        ok, out = self.verified()
+        self.assertFalse(ok)
+        self.assertIn("differs from the record", out)
+
+    def test_an_edited_manifest(self):
+        m = json.loads(self.manifest.read_text(encoding="utf-8"))
+        m["sessions"][0]["freezes"] += 1
+        self.manifest.write_text(json.dumps(m, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+        ok, out = self.verified()
+        self.assertFalse(ok)
+        self.assertIn("differs from the record", out)
+
+    def test_the_scope_row_removed_with_the_whole_chain_redone(self):
+        rec = self.rec()
+        del rec["rows"][1]
+        self.redone(rec)
+        ok, out = self.verified()
+        self.assertFalse(ok)
+        self.assertIn("a window record must say what it left out", out)
+
+
 class NoFrames(unittest.TestCase):
     FILES = [p for p in ROOT.rglob("*") if p.is_file() and ".git" not in p.parts and "__pycache__" not in p.parts]
 

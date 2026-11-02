@@ -31,6 +31,7 @@ It takes a few seconds and ends with:
 
 ```
 28 of 28 records verified
+scope: 13 of the 94 sessions are in this record; the other 81 are in m1_left_out.json, and their logs were not read
 40 clip files were not checked: they are not published. Their hashes are in the chains.
 ```
 
@@ -42,8 +43,8 @@ the one the record names, finds the row of the labels chain the record was built
 the logs and labels and compares it with what the record says. That last step is the one that counts. Changing a number
 and redoing the hashes is easy, and it still fails the rebuild.
 
-`python3 -m unittest discover tests` makes ten such attempts on a temporary copy, including a forged number with its whole
-chain redone, a deleted log row, a changed label and a policy section moved from another record. It takes about half a
+`python3 -m unittest discover tests` makes thirteen such attempts on a temporary copy, including a forged number with its
+whole chain redone, a deleted log row, a changed label and a policy section moved from another record. It takes under a
 minute.
 
 ## Reading a record
@@ -63,9 +64,13 @@ least half of the events; otherwise the record has a `not_shown` row saying why.
 Before the numbers, three things about what is in it.
 
 It is a selection. The window is 30 days, but the sessions in it ran on four days, 2 to 5 October 2026, and they are the
-13 I accepted into the first extraction (`runs/m1_first13.txt`). Those four days produced 94 session folders. The other 81
-hold 1.94 armed hours and 77 freezes, and 38 of them have no armed time at all. The record therefore covers about a third of
-the arm's time in those days, and none of its numbers is a rate for the period as a whole.
+13 I accepted into the first extraction (`runs/m1_first13.txt`). Those four days produced 94 sessions. The other 81 hold
+1.94 armed hours and 77 freezes, and 38 of them have no armed time at all. The record therefore covers about a third of the
+arm's time in those days, and none of its numbers is a rate for the period as a whole.
+
+The record says this itself, in a `scope` row right after its header and at the top of its page. The row is part of the
+chain, and a window record without one does not verify. `runs/m1_left_out.json` lists the 81 sessions with each one's chain
+head, armed seconds and freezes, and the verifier recomputes the totals from that file.
 
 Most of the code was not under test. 10 of the 13 sessions ran under the operator override, which means that exact code had
 not passed the test gate. The code also changed between sessions, and each `source` row gives that session's code hash. 2
@@ -132,6 +137,10 @@ figures, and the records say so.
 
 ## What a pass does not show
 
+The 81 left-out sessions are not checked. Their logs are not published, so the verifier adds up what
+`runs/m1_left_out.json` says and goes no further. It cannot tell you that any one session's figures are right. All 81 chains
+verified when the list was made, and their heads are in it, so a log published later would have to match.
+
 The frames are not checked. A clip's hash is in the chain but its bytes are not here, so `verify_all.py` counts those 40
 files instead of checking them. The stored photos are the same: their hashes are in the logs and the files are not
 published. Anything that depended on seeing a frame, including all of my labels, you are taking from me.
@@ -171,17 +180,18 @@ labeller, and some policy logs contain a local file path and the arm's USB seria
 | `sources/toceta_live_tote/` | the 27 policy session logs, ledgers and clip metadata |
 | `labels/` | the label chains; the policy one is empty |
 | `runs/m1_first13.txt` | the 13 sessions, as chosen |
+| `runs/m1_left_out.json` | the other 81, each with its chain head, armed time and freezes |
 | `schema/`, `SCHEMA.md` | the formats |
 | `tools/build_event_pages.py` | rebuilds the frame-free `event.html` pages |
 | `tests/` | the tampering tests |
 
 ## Where this came from
 
-`verifier/` is copied unchanged from the private working repository at commit `e59dadb`. The `field_record` files are as
+`verifier/` is copied unchanged from the private working repository at commit `016c0e9`. The `field_record` files are as
 built there and in the policy runner's repository, which is also where `schema/toceta-ledger-0.3.md` comes from, unchanged,
 so its paths refer to files in that repository. `event.html` is rebuilt here without frames.
 
-The 30-day record's `built` block names an older commit. The rows did not change, which is what the rebuild shows.
+The policy records' `built` blocks name older commits. Their rows did not change, which is what the rebuild shows.
 
 ## Licence
 
